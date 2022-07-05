@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+   <!-- Main -->
+  
+  <div class="bg-light  min-vh-100 pt-4">
+    <div class="bg-white shadow-2 rounded-1 p-4 container ">
+       <div class="grid-5 gap-1">
+        {% for product in products %}
+        <a href="{% url 'product_detail' product.id %}" class="bg-light productBox border-blue rounded-1 shadow-1">
+          <div class="rounded-bottom-right-1 ">
+            <div class="text-center">
+              <img class="imgProduct mt-1" src="{{product.image.url}}" alt="">
+            </div>
+           
+          </div>
+          <button class="btn btn-blue w-100 rounded-bottom-right-1 rounded-bottom-left-1">{{product.title}}</button>
+        </a>
+        {% endfor %}
+       </div>
+      </div>
+  </div>
+
+{% endblock %}

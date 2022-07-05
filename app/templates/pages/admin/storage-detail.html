@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Storage Detail{% endblock %}
+
+{% block content %}
+   <!-- Main -->
+
+   
+    <div class="bg-light settings-page min-vh-100 bg-sm-none">
+        <div class="container py-4">
+            {% include 'pages/settings/menu.html' %}
+            <div class="bg-white py-4 px-3 rounded-1 mt-4">
+                <table id="myTable2" class="table table-light editRefresh">
+                    <thead>
+                        <tr>
+                            <td class="text-center">#</td>
+                            <td>Наименование</td>
+                            <td>GB</td>
+             
+                            <td>Кол-во</td>
+                            <td>Статус</td>
+                            <td>Дата</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Product Color -->
+                        {% for item in storage %}
+                        <tr>
+                            <td class="text-center">{{forloop.counter}}</td>
+                            <td>{{item.productColorSize}}</td>
+                            <td>{{item.productColorSize.memory}}GB</td>
+                        
+                            <td>{{item.quantity}}</td>
+                            <td>
+                                {% if item.storage_type == True %}
+                                    Приход
+                                {% else %}
+                                    Расход
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{item.date}}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+         
+
+        </div>
+    </div>
+
+
+{% endblock %}

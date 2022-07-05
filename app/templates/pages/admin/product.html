@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Settings {% endblock %}
+
+{% block content %}
+   <!-- Main -->
+
+
+    <div class="bg-light settings-page py-4 min-vh-100 bg-sm-none ">
+        <div class="container">
+            {% include 'pages/settings/menu.html' %}
+            <div class="shadow-2 bg-white rounded-1 p-4 mt-4 p-sm-0 ">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="fs-30 b-1">Продукты</div>
+                        <a class="btn btn-green rounded-1" href="{% url 'product_create' %}">Добавить продукт</a>
+                    </div>
+                    <div class="hr-dark-light"></div>
+                    <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <td class="text-center">#</td>
+                                <td>Наименование</td>
+                                <td>Цвет</td>
+                                <td>Действие</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr>
+                                <td class="text-center"><div class="p-3 border-dark-light rounded-1">{{forloop.counter}}</div></td>
+                                <td><div class="p-3 border-dark-light rounded-1">{{product.title}}</div></td>
+                                <td>
+                                    <div class="d-flex">
+                                        {% for item in product.productcolor_set.all %}
+                                            <a href="{% url 'admin_product_detail' item.id %}" class="b-1 mr-2 p-3 border-dark-light rounded-1">{{item.color}}</a>
+                                        {% endfor %}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{% url 'productColor_create' product.id %}" class="btn  btn-blue rounded-1">Посмотреть</a>
+                                        <button data-id="{{product.id}}" data-img="{{product.image.url}}" class="btn btnMain photo  btn-yellow rounded-1 ml-2">Фото</button>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <div class="modal-container modalMain d-none">
+                                <div class="modal p-3">
+                                    <img  class="w-100" src="" alt="">
+                                    <form class="mt-3 form" action="" enctype="multipart/form-data" method="POST">
+                                        {% csrf_token %}
+                                        <label class="label" for="image">Выберите фото</label>
+                                        <input class="input" name="image" id="image" type="file">
+                                        <button class="btn btn-green rounded-1 w-100 mt-2">Изменить</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

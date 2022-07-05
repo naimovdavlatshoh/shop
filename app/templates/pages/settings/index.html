@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Settings {% endblock %}
+
+{% block content %}
+   <!-- Main -->
+
+
+    <div class="bg-light settings-page vh-100 bg-sm-none p-4 cotn  px-sm-3">
+        <div class="container">
+            {% include 'pages/settings/menu.html' %}
+            <div class=" bg-white rounded-1 p-4 mt-4 p-sm-0 ">
+                    
+            </div>
+        </div>
+    </div>
+
+    <div class="modal_ d-none ">
+        <div class="modal w-sm-70  bg-light  rounded-1 p-4">
+           <p class="fs-22 text-ocean mt-0">вы точно хотите выйти из аккаунта</p>
+           <hr class=" bg-dark-light">
+           <div class="d-flex justify-content-between">
+             <a href="{% url 'sign_out' %}" class="btn w-45 btn-red rounded-1 mt-3">Да</a>
+             <button class="btn close_btn w-45 btn-green rounded-1 mt-3">Нет</button>
+           </div>
+        </div>
+     </div>
+
+
+{% endblock %}

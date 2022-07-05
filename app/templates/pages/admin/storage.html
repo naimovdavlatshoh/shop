@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Storage {% endblock %}
+
+{% block content %}
+   <!-- Main -->
+
+   
+    <div class="bg-light settings-page min-vh-100 bg-sm-none">
+        <div class="container py-4">
+            {% include 'pages/settings/menu.html' %}
+            <div class="bg-white py-4 px-3 rounded-1 mt-4">
+                <table id="myTable" class="table table-light editRefresh">
+                    <thead>
+                        <tr>
+                            <td class="text-center">#</td>
+                            <td>Наименование</td>
+                            <td>GB</td>
+             
+                            <td>Кол-во</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Product Color -->
+                        {% for item in products %}
+                         
+                            <tr>
+                                <td class="text-center">{{forloop.counter}}</td>
+                                <td>{{item.productColor}}</td>
+                                <td>{{item.memory}}GB</td>
+                            
+                                <td>{{item.real_count}}</td>
+                                <td>
+                                    <div class="grid-2 gap-1">
+                                        <button id="{{item.id}}" class="storageModal btn btn-blue rounded-1">Обновить</button>
+                                        <a href="{% url 'storage_detail' item.id %}" class=" btn btn-grey rounded-1">Посмотреть</a>
+                                    </div>
+                                </td>
+                            </tr>
+                         
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-container d-none storageModalContainer">
+                <div class="modal p-3">
+                    <form action="" class="form grid-1 gap-1" method="POST">
+                        {% csrf_token %}
+                        <div class="">
+                            <label class="label" for="">Кол-во</label>
+                            <input type="number" name="quantity" class="input">
+                        </div>
+                        <div class="">
+                            <label class="label" for="">Кол-во</label>
+                            <select name="answer"  class="input">
+                                <option value="True">Приход</option>
+                                <option value="False">Расход</option>
+                            </select>
+                        </div>
+                        <button class=" btn btn-blue rounded-1">Сохранить</button>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

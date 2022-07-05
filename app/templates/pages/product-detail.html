@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{product.title}} {% endblock %}
+
+{% block content %}
+   <!-- Main -->
+
+  <div class="bg-light  ">
+    <div class="container product_detail_container py-4">
+        <div class="bg-white shadow-3 rounded-1 p-4">
+            <div class="grid-2 gap-2">
+              <div class="left ">
+                  <div class="shadow-2 rounded-2 p-3 mb-4">
+                    <img class="w-100 rounded-top-left-2 rounded-top-right-2" src="{{product.image.url}}" alt="">
+                  </div>
+                  <div class="inner-shadow-2 grid-4 gap-1 mt-3  p-3 rounded-2">
+                    <img class="w-100  rounded-1" src="{{product.image.url}}" alt="">
+
+                  </div>
+              </div>
+              <div class="right product_detail">
+                <div class="inner-shadow-2 rounded-2 p-3">
+                    <div class="d-flex align-items-center">
+                        <div class="title b-2 fs-26">{{product.title}}</div>
+                        <div class="fs-26 brand b-2 ml-auto">{{product.brand}}</div>
+                    </div>
+                    <div class="mt-4 b-2 fs-18">Description: {{product.view_set.count}}</div>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet minima natus obcaecati omnis assumenda mollitia hic dolore. Sunt, iusto distinctio dignissimos quos laborum odit, rerum veniam ipsum consectetur dolor saepe?
+                    </p>
+                   
+                  
+                </div>
+                {% for productColor in productColors %}
+                <div class="my-4 d inner-shadow-2 p-3 rounded-2 b-2 fs-17">{{ productColor.color }}</div>
+                <div class="shadow-2 p-3 rounded-2 inner-shadow-2">
+                    <div class="grid-4 gap-1">
+                        {% for size in productColor.product_productsColors.all %}
+                  
+                            {% if size.price == 0 %}
+                            <!-- <div class="scene rounded-2 ">
+                                <div class="box">
+                                    <div class="front bg-white shadow-2 rounded-2 b-2 fs-20 d-flex align-items-center justify-content-center">{{size.memory}}GB</div>
+                                    <div class="back d-flex flex-column justify-content-center align-items-center rounded-2 bg-dark-night text-light">
+                                        <div class="fs-20">Нет в наличии</div>
+                                        <button data-url="{% url 'addToCart' %}" data-id="{{size.id}}" class="addToCart btn btn-light btn-sm rounded-1 mt-2 b-1">В корзину</button>
+                                    </div>
+                                </div>
+                            </div> -->
+                            {% else %}
+                            <div class="scene rounded-2 ">
+                                <div class="box">
+                                    <div class="front bg-white shadow-2 rounded-2 b-2 fs-20 d-flex align-items-center justify-content-center">{{size.memory}}GB</div>
+                                    <div class="back d-flex flex-column justify-content-center align-items-center rounded-2 bg-dark-night text-light">
+                                        {% if size.real_count == 0 %}
+                                        <div class="fs-13"> Нет в Наличии</div>
+                                        {% else %}
+                                        <div class="fs-20">{{size.price}}$</div>
+                                        <button data-url="{% url 'addToCart' %}" data-id="{{size.id}}" class="addToCart btn btn-light btn-sm rounded-1 mt-2 b-1">В корзину</button>
+                                        {% endif %}
+
+                                        
+                                        {%  if  size.is_favourite %}
+                                            <button data-url="{% url 'add_favourite' %}" data-id="{{size.id}}" class="addToFavourite d-block btn btn-red btn-sm rounded-1 mt-1">saved</button>
+                                        {% else %}
+                                            <button data-url="{% url 'add_favourite' %}" data-id="{{size.id}}" class="addToFavourite d-block btn btn-yellow btn-sm rounded-1 mt-1">save</button>
+                                        {% endif %}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+
+  <script>
+      let cards = document.querySelectorAll('.box')
+      for(let card of cards){
+          card.addEventListener('click', ()=> {
+              card.classList.toggle('active')
+          })
+      }
+  </script>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Settings {% endblock %}
+
+{% block content %}
+   <!-- Main -->
+<div class="bg-light settings-page vh-100 bg-sm-none ">
+    <div class="container py-4">
+        {% include 'pages/settings/menu.html' %}
+        <div class=" bg-white shadow-2 rounded-1 p-4 mt-4 p-sm-0 ">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="fs-30 b-1">Продукты</div>
+                <div class="d-flex">
+                    <button class="btn btn-green rounded-1 addProductColor">Добавить память</button>
+                    <form action="{% url 'productColorSize_create' productColor.id %}" class="d-flex ml-3 d-none addProductColorContainer" method="POST">
+                        {% csrf_token %}
+                        <input class="input mr-3" name="price" placeholder="Цена" type="number">
+                        <select class="input colorsSelectContainer" name="sizeId" id="">
+                            {% for item in sizes %}
+                                <option class="colorsSelect " value="{{item.id}}">{{item.size}}</option>
+                            {% endfor %}
+                        </select>
+                        <button class="btn btn-green rounded-1 ml-3">Добавить</button>
+                    </form>
+                </div>
+            </div>
+            <div class="hr-dark-light"></div>
+             
+            <div class="grid-4 gap-1">
+                {% for item in productColor.product_productsColors.all %}
+                    <div class="">
+                        <div class=" box p-3 initial_form border-dark-light rounded-1 grid-2 gap-1" >
+                            <input type="price" value="{{item.price}}" disabled class="input refreshPrice">
+                            <input type="price" value="{{item.memory}}GB" disabled class="input ">
+    
+                            <button type="button" class="productColorSizeEditBtn btn btn-green rounded-1">Изменить</button>
+                            <button type="button" data-url="{% url 'productColorSize_delete' %}" data-id="{{item.id}}" class="productColorSizeDeleteBtn btn btn-red rounded-1">Удалить</button>
+                        </div>
+                        <!-- Back -->
+                        <div class="d-none form_edit box p-3 border-dark-light rounded-1 grid-2 gap-1" >
+                            <input type="price" value="{{item.price}}"  class="input input_price">
+                            <input type="price" value="{{item.memory}}GB" disabled class="input ">
+    
+                            <button type="button" data-id="{{item.id}}" data-url="{% url 'productColorSize_edit' %}"  class="productColorSize_edit btn btn-green rounded-1">Сохранить</button>
+                            <button type="button" class="productColorSizeCancelBtn btn btn-grey rounded-1">Назад</button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+    
+        </div>
+    </div>
+</div>
+
+{% endblock %}

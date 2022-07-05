@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+   
+<div class="container">
+    <div class="sign_in_container py-4 grid-2 ">
+        <div class="left d-flex bg-blue text-ocean justify-content-center rounded-1 align-items-center">
+            <section class="copy">
+                <h1>Codify Labs</h1>
+                <p>Over 1000 projects taught by real creatives</p>
+            </section>
+        </div>
+        <div class="right d-flex justify-content-center align-items-center">
+            <form action="{% url 'sign_in' %}" method="POST">
+                {% csrf_token %}
+                <section class="bg-dark copy text-center text-dark-night">
+                    <h2>Sign in</h2>
+                    <div class="login-container">
+                        <p class="my-4  fs-14">
+                            Don't have an accounts?
+                            <a href="{% url 'sign_up' %}" class="b-1 text-blue">Sign up</a>
+                        </p>
+                    </div>
+                </section>
+                <div class="my-4">
+                    <label for="fname">Email</label>
+                    <input id="fname" class="input input-md" name="username" type="email">
+                </div>
+                <div class="my-4">
+                    <label for="fname">Password</label>
+                    <input id="fname" class="input input-md" name="password" type="password">
+                </div>
+                <button class="btn btn-blue btn-md w-100 rounded-1">Sign in</button>
+                
+                <!-- <section>
+                    <p class="small text-center fs-13">
+                        <span >
+                            By continuing, you agree to accept our <br> 
+                            <a href="#" class="text-blue">
+                                Privacy Policy 
+                            </a>
+                            &amp; 
+                            <a href="#" class="text-blue">Terms of Servicy </a>.
+                        </span>
+                    </p>
+                </section>  -->
+            </form>
+        </div>
+    </div>
+</div>
+   
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} favourite {% endblock %}
+
+{% block content %}
+
+<div class="bg-light min-vh-100 pt-5">
+  <div class="container ">
+    {% include 'pages/settings/menu.html' %}
+ 
+</div>
+  <div class="container shadow-2  bg-white mt-3  rounded-1 p-4">
+    <p class="mb-3 my-0 mt-0 fs-30 b-2">Favourite products</p>
+     
+    <div class="grid-4 gap-1">
+    {% for favourite in favourites %}
+    {% if favourite.productColorSize.real_count == 0 %}
+    <div class="product-box px-3 py-2 shadow-3 rounded-2 inner-shadow-2  ">
+        <div>
+          <img  class="p-1" src="{{favourite.productColorSize.productColor.product.image.url}}" alt="">
+        </div>
+        <div>
+          <p class="fs-22 b-1 mb-3">{{favourite.productColorSize.productColor.product.title}}</p>
+          <p class="fs-16 b-1 ">Size : {{favourite.productColorSize.memory.size}} Gb</p>
+          <p class="fs-16 b-1 ">Color : {{favourite.productColorSize.productColor.color.title}}</p>
+          <p class="fs-16 b-1 ">Color : {{favourite.productColorSize.price}}$</p>
+          <p class="fs-15 b-1 text-red">Sorry! Product is not cash</p>
+        </div> 
+        
+        </div>
+    {% else %}
+    <div class="product-box px-3 py-2 shadow-3 rounded-2 inner-shadow-2  ">
+        <div>
+          <img  class="p-1" src="{{favourite.productColorSize.productColor.product.image.url}}" alt="">
+        </div>
+        <div>
+          <p class="fs-22 b-1 mb-3">{{favourite.productColorSize.productColor.product.title}}</p>
+          <p class="fs-16 b-1 ">Size : {{favourite.productColorSize.memory.size}} Gb</p>
+          <p class="fs-16 b-1 ">Color : {{favourite.productColorSize.productColor.color.title}}</p>
+          <p class="fs-16 b-1 ">Color : {{favourite.productColorSize.price}}$</p>
+        </div> 
+        </div>
+    {% endif %}
+      
+    
+    {% endfor %}
+  </div>
+</div>
+</div>
+
+
+<div class="modal_ d-none">
+  <div class="modal w-sm-70  bg-light  rounded-1 p-4">
+     <p class="fs-22 text-ocean mt-0">вы точно хотите выйти из аккаунта</p>
+     <hr class=" bg-dark-light">
+     <div class="d-flex justify-content-between">
+       <a href="{% url 'sign_out' %}" class="btn w-45 btn-red rounded-1 mt-3">Да</a>
+       <button class="btn close_btn w-45 btn-green rounded-1 mt-3">Нет</button>
+     </div>
+  </div>
+</div>
+
+{% endblock %}

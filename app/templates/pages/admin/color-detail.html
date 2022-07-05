@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Settings {% endblock %}
+
+{% block content %}
+   <!-- Main -->
+<div class="bg-light settings-page vh-100 bg-sm-none ">
+    <div class="container py-4">
+        {% include 'pages/settings/menu.html' %}
+        <div class=" bg-white shadow-2 rounded-1 p-4 mt-4 p-sm-0 ">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="fs-30 b-1">Продукты</div>
+                <div class="d-flex">
+                    <button class="btn btn-green rounded-1 addProductColor">Добавить цвет</button>
+                    <form action="{% url 'productColor_create' product.id %}" class="d-flex ml-3 d-none addProductColorContainer" method="POST">
+                        {% csrf_token %}
+                        <select class="input " name="colorId" id="">
+                            {% for color in colors %}
+                                <option class="colorsSelect " value="{{color.id}}">{{color.title}}</option>
+                            {% endfor %}
+                        </select>
+                        <button class="btn btn-green rounded-1 ml-3">Добавить</button>
+                    </form>
+                </div>
+            </div>
+            <div class="hr-dark-light"></div>
+             
+            <div class="grid-4 gap-1">
+                {% for item in product.productcolor_set.all %}
+                   <a href="{% url 'productColor_gallery' item.id %}" class="p-3 border-dark-light rounded-1">
+                    {{item}}
+                   </a>
+                {% endfor %}
+            </div>
+
+    
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+   <!-- Main -->
+  
+  <div class="bg-light pt-4 px-4 container">
+    <div class="d-flex   align-items-start d-sm-none min-vh-50 ">
+      <!-- categories -->
+      <div class=" grid-1 bg-light categoryBox d-sm-none rounded-1 mt-4 p-2">
+        {% for category in categories %}
+        <a href="{% url 'category_detail' category.id %}" class="category_ fs-19 px-2 pt-2  mt-1">{{category.title}}</a>
+        {% endfor %}
+              
+
+      </div>
+
+      <!-- slide -->
+      <div class="flex-wrap p-4 w-80 ">
+        <div class="d-flex  align-items-start d-sm-none w-100 w-sm-100 ">
+          <div class="w-75  rounded-1 ">
+            <div id="image-slider2" class="splide vh-40 rounded-1 bg-night">
+              <div class="splide__track h-100 rounded-1">
+                 <ul class="splide__list h-100">
+                    <li class="splide__slide vh-40">
+                       <img class="w-100 h-100 object-fit d-block" src="https://pyxis.nymag.com/v1/imgs/aea/7e9/5de4703346f216a616f7e5475cfbe0fb95-10-laptops.2x.rsocial.w600.jpg">
+                     </li>
+                     <li class="splide__slide vh-40">
+                      <img class="w-100 h-100 object-fit d-block" src="https://cdn.mos.cms.futurecdn.net/XXzWLdqVL7V6dP4UkUJ6bK-768-80.jpg">
+                    </li>
+                    <li class="splide__slide vh-40">
+                      <img class="w-100 h-100 object-fit d-block" src="https://mspoweruser.com/wp-content/uploads/2017/08/surface-laptop.jpg">
+                    </li>
+                 </ul>
+              </div>
+           </div>
+          </div>
+  
+          <div class="shadow-1 userBox w-25 rounded-1 p-1 py-3 ml-2">
+            <div class="mx-auto imgUSer mb-2">
+              <img class="w-100 d-block" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="">
+            </div>
+            
+            {% if user.is_authenticated %}
+            <div class="w-100  mx-auto">
+              <a  href="{% url 'settings' %} " class=" btn btn-blue rounded-1 w-100 mt-2">{{user.email|slice:":8"}}...</a>
+            </div>
+            <a href="{% url 'sign_out' %}" class="btn btn-red w-100 rounded-1 mt-2">log-out</a>
+            {% else %}
+              <a href="{% url 'sign_up' %}" class="btn btn-blue w-100 rounded-1 mt-2">Register</a>
+              <a href="{% url 'sign_in' %}" class="btn btn-green w-100 rounded-1 mt-2">Sign-in</a>
+            {% endif %}
+          </div>
+  
+  
+          
+          
+        </div>
+  
+        <!-- user-page -->
+       
+          <div class="d-flex mt-2">
+            <div class="w-75 d-sm-none SecondSlide bg-grey rounded-1  d-flex align-items-center justify-content-between px-2">
+            <div class="mx-3 text">
+                <p class="fs-26 text-light b-1 mt-0 mb-0">Wellcome</p> 
+                <p class="fs-20 text-ocean mt-0 mb-0">To Our </p>
+                <p class="fs-20 text-ocean mt-0 mb-0">Online <span class="fs-20 text-light">Shop</span></p>
+  
+            </div>
+            <div class="w-70">
+              <div id="image-slider1" class="splide vh-15 rounded-1  mt-3">
+                <div class="splide__track h-100 rounded-1">
+                   <ul class="splide__list h-100">
+                    {% for product in products %}
+                    {% if product.view_set.count >= 2 %}
+                    <li class="splide__slide slideProduct vh-40">
+                      <a href="{% url 'product_detail' product.id %}" class="product-box p-3  rounded-1">
+                        <img class="img rounded-1" src="{{product.image.url}}" alt="">
+                      </a>
+                    </li>
+                    
+                    {% endif %}
+                    {% endfor %}
+                      
+                       
+                   </ul>
+                </div>
+             </div>
+            </div>
+          </div> 
+            <div class="shadow-1 userBox rounded-1 p-1  w-25 py-3 ml-2">
+              <p class="fs-18 b-1 text-ocean text-center"><span><i class="fas fa-home"></i></span> About Us:</p>
+              <p class="fs-16  text-ocean text-center">Our address...</p>
+              <p class="fs-16  text-ocean text-center">Our numbers...</p>
+              <a href="" class="btn btn-purple w-100 rounded-1 mt-2">More</a>
+  
+            </div>
+          </div>
+         
+      </div>
+      
+
+
+      
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    
+    <div id="image-slidersm" class="splide vh-25 rounded-1 px-2 d-none d-sm-block ">
+      <div class="splide__track h-100 rounded-1">
+         <ul class="splide__list h-100">
+            <li class="splide__slide ">
+               <img class="w-100 h-100 object-fit rounded-1" src="https://pyxis.nymag.com/v1/imgs/aea/7e9/5de4703346f216a616f7e5475cfbe0fb95-10-laptops.2x.rsocial.w600.jpg">
+             </li>
+             <li class="splide__slide vh-40">
+              <img class="w-100 h-100 object-fit rounded-1" src="https://cdn.mos.cms.futurecdn.net/XXzWLdqVL7V6dP4UkUJ6bK-768-80.jpg">
+            </li>
+            <li class="splide__slide vh-40">
+              <img class="w-100 h-100 object-fit rounded-1" src="https://mspoweruser.com/wp-content/uploads/2017/08/surface-laptop.jpg">
+            </li>
+         </ul>
+      </div>
+   </div>
+
+    <div class=" bg-light  rounded-1 p-4 px-sm-2 pt-sm-1 mt-4 mb-4">
+      <div class="grid-5 grid-sm-2 gap-1">
+        {% for product in products %}
+          <a href="{% url 'product_detail' product.id %}" class="bg-light productBox border-blue rounded-1 shadow-1">
+            <div class="rounded-bottom-right-1 ">
+              <div class="text-center imgBox">
+                <img class="imgProduct mt-1" src="{{product.image.url}}" alt="">
+              </div>
+             
+            </div>
+            <button class="btn btn-blue w-100 rounded-bottom-right-1 rounded-bottom-left-1">{{product.title}}</button>
+          </a>
+       
+        
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <script>
+     document.addEventListener( 'DOMContentLoaded', function () {
+
+      var header = new Splide( '#image-slider2' ,{
+          
+          classes: {
+            prev  : 'splide__arrow--prev sl2-class-prev',
+            next  : 'splide__arrow--next sl2-class-next',
+
+          },
+       }
+      
+      
+
+
+      );
+        header.mount()
+
+
+
+      } );
+  </script>
+
+
+<script>
+  document.addEventListener( 'DOMContentLoaded', function () {
+
+   var header = new Splide( '#image-slidersm' ,{
+       
+       classes: {
+         prev  : 'splide__arrow--prev slsm-class-prev',
+         next  : 'splide__arrow--next sl2-class-next',
+
+       },
+    }
+   
+   
+
+
+   );
+     header.mount()
+
+
+
+   } );
+</script>
+
+
+<script>
+  document.addEventListener( 'DOMContentLoaded', function () {
+
+   var header = new Splide( '#image-slider1' ,{
+      perPage : 3,
+       classes: {
+         prev  : 'splide__arrow--prev sl1-class-prev',
+         next  : 'splide__arrow--next sl1-class-next',
+
+       },
+    }
+   
+   
+
+
+   );
+     header.mount()
+
+
+
+   } );
+</script>
+
+{% endblock %}

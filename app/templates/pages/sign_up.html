@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+   
+<div class="container">
+    <div class="sign_in_container py-4 grid-2 ">
+        <div class="left d-flex text-ocean bg-blue rounded-1 justify-content-center align-items-center">
+            <section class="copy">
+                <h1>Codify Labs</h1>
+                <p>Over 1000 projects taught by real creatives</p>
+            </section>
+        </div>
+        <div class="right d-flex justify-content-center align-items-center">
+            <form action="{% url 'sign_up' %}" method="POST">
+                {% csrf_token %}
+                <section class="copy text-center text-dark-night">
+                    <h2>Sign up</h2>
+                    <div class="login-container">
+                        <p class="my-4  fs-14">
+                            Already have an accounts?
+                            <a href="{% url 'sign_in' %}" class="b-1 text-blue">Sign in</a>
+                        </p>
+                    </div>
+                </section>
+                <div class="my-4">
+                    <label for="fname">Email</label>
+                    {{form.email}}
+                </div>
+                <div class="my-4">
+                    <label for="fname">Password</label>
+                    {{form.password1}}
+                </div>
+                <div class="my-4">
+                    <label for="fname">Password</label>
+                    {{form.password2}}
+                </div>
+                <button class="btn btn-blue btn-md w-100 rounded-1">Sign up</button>
+                
+                <section>
+                    <p class="small text-center fs-13">
+                        <span >
+                            By continuing, you agree to accept our <br> 
+                            <a href="#" class="text-blue">
+                                Privacy Policy 
+                            </a>
+                            &amp; 
+                            <a href="#" class="text-blue">Terms of Servicy </a>.
+                        </span>
+                    </p>
+                </section> 
+                {% for message in messages %}
+                    <div class="p-2 border-red rounded-1 my-2">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            </form>
+        </div>
+    </div>
+</div>
+   
+
+{% endblock %}

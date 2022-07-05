@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="{% static 'splide/dist/css/splide.min.css' %}">
+
+
+</head>
+<body>
+    <div>
+        <div class="navbar-container border-bottom-light d-sm-none">
+            <div class="navbar py-4 d-flex justify-content-between flex-wrap  align-items-center container">
+                <div onclick="handleToggle()" class="bars-container  mr-sm-3 d-none"  >
+                    <div class='bars ' ></div>
+                </div>
+                <a class='logo mr-sm-auto' href="{% url 'index' %}">
+                    <p class="fs-30 b-2 mt-0 mb-0 text-blue">Online <span class="fs-30  text-blue"><i class="fab fa-shopify"></i></span></p>
+                </a> 
+                <div class="search mx-auto my-sm-2 w-60">
+                    <form action="{% url 'search' %}" class="d-flex" method="GET">
+                     {% csrf_token %}
+                     <input type="text" placeholder="Я ищу..." name="search">
+                     <button class="btn btn-blue rounded-top-right-1 rounded-bottom-right-1 shadow-1" ><i class="fas fa-search"></i></button>
+                    </form>
+                     <img src='{% static "images/search.svg" %}' alt="" />
+                 </div>
+                <div class="d-none nav-hidden-icons">
+                        <div class="user-icon-container   uic d-flex  align-items-center cursor">
+                            <i class="far fa-user"></i>
+                        </div>
+                        <div class="favourite-icon-container ml-sm-3 uic d-flex  align-items-center  cursor">
+                            <i class="far fa-heart"></i>
+                        </div>
+                        <div class="cart-icon-container ml-sm-3 d-flex uic  align-items-center cursor">
+                            <i class="fab fa-opencart"></i>
+                        </div>
+                    </div>
+                <div class="accaunt-navigator-container  d-flex">
+                    
+                    
+                    
+                    <!-- <a href="{% url 'favourite' %}" class="favourite-icon-container d-flex  align-items-center ml-4 cursor">
+                        <i class="far fa-heart"></i>
+                        <div class=" ml-2 icon-title">Избранное</div>
+                    </a> -->
+
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'cart' %}" class="cart-icon-container d-flex  align-items-center mr-4 cursor">
+                        <p class="fs-22 text-blue mb-0 mt-0"><i class="fab fa-opencart"></i></p>
+                        <div class=" ml-2 icon-title fs-22 text-blue">Корзина <span class="cart_parent"><sup class="b-2 cart_child">{{user.user_carts.count}}</sup></span></div>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'sign_in' %}" class="cart-icon-container d-flex  align-items-center mr-4 cursor">
+                        <p class="fs-22 text-blue mb-0 mt-0"><i class="fab fa-opencart"></i></p>
+                        <div class=" ml-2 icon-title fs-22 text-blue">Корзина <span class="cart_parent"><sup class="b-2 cart_child">{{user.user_carts.count}}</sup></span></div>
+                    </a>
+                    {% endif %}
+
+                    
+                    
+                   
+                </div>
+              
+            </div>
+            <div class = ' accaunt-navigator-hidden-container d-none '>
+                <div class = 'accaunt-navigator-hidden bg-white border-top-light border-right-light  ' >
+                    <div class='hidden-menu-header'>
+                        <div class="border-bottom-light flex-wrap d-flex justify-content-between align-items-center py-2 container">
+                            <a class='logo' href="">
+                                <img src='{% static "images/Logo.svg" %}' alt="" />
+                            </a> 
+                            <i onclick="handleToggle()" class='fas fa-times'></i>
+                        </div>
+                    </div>
+                
+                
+                </div>
+            </div>
+            
+          
+       </div>
+     
+    
+      
+    </div>
+    <a class='logo d-none d-sm-block text-center mt-4' href="{% url 'index' %}">
+        <p class="fs-30 b-2 mt-0 mb-0 text-blue">Online <span class="fs-30  text-blue"><i class="fab fa-shopify"></i></span></p>
+    </a> 
+    
+        <div class="p-2  d-none d-sm-block">
+            <form action="{% url 'search' %}" class="d-flex w-100" method="GET">
+                {% csrf_token %}
+                <input type="text" class="input" placeholder="Я ищу..." name="search">
+                <button class="btn btn-blue rounded-top-right-1 rounded-bottom-right-1 shadow-1" ><i class="fas fa-search"></i></button>
+               </form>
+                <img src='{% static "images/search.svg" %}' alt="" />
+        </div>
+     
+
+   <!-- Main -->
+   
+    {% block content %}
+   
+    {% endblock %}
+   
+    <div class="grid-sm-4 d-none d-sm-block  navbar_sm text-center bg-light">
+        <a href="{% url 'index' %}" class="text-blue rounded-1 p-2 {% if request.path == '/' %} bg-blue text-light {% endif %}"><span class="fs-24 "><i class="fas fa-home"></i></span><br>home</a>
+        <a href="{% url 'category' %}" class="text-blue rounded-1 p-2{% if request.path == '/category/' %} bg-blue text-light {% endif %}"><span class="fs-24 "><i class="fas fa-bars"></i></span><br>category</a>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'cart' %}" class="text-blue rounded-1 p-2 {% if request.path == '/cart/' %} bg-blue text-light {% endif %}"><span class="fs-24"><i class="fab fa-opencart"></i></span><br>basket</a>
+        {% else %}
+        <a href="{% url 'sign_in' %}" class="text-blue rounded-1 p-2 {% if request.path == '/sign-in/' %} bg-blue text-light {% endif %}"><span class="fs-24 "><i class="fab fa-opencart"></i></span><br>basket</a>
+        {% endif %}
+        <a href="{% url 'user' %}" class="text-blue p-2 rounded-1 {% if request.path == '/user/' %} bg-blue text-light {% endif %}"><span class="fs-24"><i class="fas fa-user-alt"></i></span><br>user</a>
+
+        
+    </div>
+
+
+    <!-- <script
+        src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous">
+    </script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="{% static 'splide/dist/js/splide.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script type="text/javascript" src="{% static 'js/ajax.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+    <script src="https://kit.fontawesome.com/92d93db707.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

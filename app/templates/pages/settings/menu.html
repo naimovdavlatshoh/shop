@@ -1,0 +1,68 @@
+{% if request.user.is_staff %}
+<div class=" bg-white profile-section rounded-1 p-4  p-sm-4 ">
+    <h2 class="mt-0 b-1 fs-30">Личный кабинет</h2>
+    <div class="hr-dark-light"></div>
+    <div class=" ">
+        <ul class=" d-flex flex-sm-wrap rounded-1    ">
+            <li class="mr-3 w-sm-100 mt-2" >
+                <a class="  b-1 rounded-1 btn btn-blue b-1 "  href="{% url 'admin_product' %}"> 
+                    
+                    Продукты
+                </a>
+            </li>
+            <li class="mr-3 w-sm-100 mt-2" >
+                <a class="  b-1 rounded-1 btn btn-blue b-1"  href="{% url 'storage' %}"> 
+                    Склад
+                </a>
+            </li>
+            <li class="mr-3 w-sm-100 mt-2" >
+                <a class="  b-1 rounded-1 btn btn-red b-1"  href="{% url 'sign_out' %}"> 
+                    Выйти
+                </a>
+            </li>
+          
+            
+        </ul>
+    </div>
+</div>
+{% else %}
+<div class=" bg-white profile-section rounded-1 p-4 shadow-2 p-sm-4 ">
+    <h2 class="mt-0">Профиль</h2>
+    <!-- <hr class="hr bg-blue mb-4"> -->
+    <div class=" ">
+        <ul class=" d-flex flex-sm-wrap rounded-1    ">
+            <a href="{% url 'personal' %}" class="mr-3 rounded-1 mt-2 w-sm-100 btn btn-blue {% if request.path == '/personal/' %} btn-grey {% endif %} text-dark-night" >
+                <p class=" fs-15 b-1  text-light "  href=""> 
+                    
+                    Личные данные
+                </p>
+            </a>
+            <a class="mr-3 rounded-1 btn  inner-shadow-2 btn-blue mt-2 w-sm-100" >
+                <p class=" fs-15 b-1  text-light "  href=""> 
+                    Поменять пароль
+                </p>
+            </a>
+            <a href="{% url 'favourite' %}" class="mr-3 rounded-1 mt-2 w-sm-100 btn btn-blue {% if request.path == '/favourite/' %} btn-grey {% endif %} inner-shadow-2" >
+                <p class="fs-15 b-1    text-light"  href="">
+                    Избранное
+                    
+                </p>
+            </a>
+                <a href="{% url 'cart' %}" class="mr-3 rounded-1 mt-2 w-sm-100 btn-blue {% if request.path == '/cart/' %} btn-grey {% endif %}  btn inner-shadow-2" >
+                <p class="fs-15 b-1    text-light"  href="">
+                   
+                    
+                    Корзина
+                </p>
+            </a>
+            <button  class="rounded-1 modal_btn btn btn-red w-sm-95 mt-2 inner-shadow-2" >
+                <p class="fs-15 b-1    text-light "  href="">
+                    Выйти
+            </p>
+            </button>
+        </ul>
+    </div>
+
+    
+
+{% endif %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} favourite {% endblock %}
+
+{% block content %}
+
+<div class="bg-light min-vh-100 pt-5">
+    <div class="container ">
+        {% include 'pages/settings/menu.html' %}
+     
+    </div>
+  <div class="container shadow-2 mt-3 bg-white  rounded-1 p-4">
+      
+    <div class="d-flex justify-content-between align-items-center">
+        <p class="mb-3 my-0 mt-0 fs-30 b-2">Личные данные</p>
+        <a href="{% url 'personal' %}" class="btn btn-blue rounded-1 shadow-1">Назад</a>
+    </div>
+    
+    <form action="{% url 'editPersonal' %}" class="grid-3 gap-1" method="POST">
+        {% csrf_token %}
+        <div>
+            <label class="mb-3" for="">First-name</label>
+            <input type="text" value="{{user.first_name}}" name="firstname" class="input">
+        </div>
+        <div>
+            <label class="mb-3" for="">LAst-name</label>
+            <input type="text" value="{{user.last_name}}" name="lastname" class="input">
+        </div>
+        <div>
+            <label class="mb-3" for="">Date</label>
+            <input type="date" value="{{user.date}}" name="date" class="input">
+        </div>
+        <!-- <div>
+            <label class="mb-3" for="">Image</label>
+            <input type="text" name="image" class="input">
+        </div> -->
+        <div>
+            <label class="mb-3"  for="">Gander</label>
+            <input type="text" value="{{user.gender}}" name="gander" class="input">
+        </div>
+        <div>
+            <label class="mb-3" for="">Number</label>
+            <input type="text" name="number" value="{{user.number}}"  class="input">
+        </div>
+        <div>
+            <label class="mb-3" for="">Passport</label>
+            <input type="text" name="passport" value="{{user.pasport}}"  class="input">
+        </div>
+        <div>
+            <label class="mb-3" for="">Address</label>
+            <input type="text" name="address" value="{{user.address}}"  class="input">
+        </div>
+        <button class="btn btn-blue rounded-1 shadow-1 mt-4">Сохранить</button>
+    </form>
+  
+</div>
+</div>
+
+
+<div class="modal_ d-none">
+    <div class="modal w-sm-70 bg-light  rounded-1 p-4">
+       <p class="fs-22 text-ocean mt-0">вы точно хотите выйти из аккаунта</p>
+       <hr class=" bg-dark-light">
+       <div class="d-flex justify-content-between">
+         <a href="{% url 'sign_out' %}" class="btn w-45 btn-red rounded-1 mt-3">Да</a>
+         <button class="btn close_btn w-45 btn-green rounded-1 mt-3">Нет</button>
+       </div>
+    </div>
+ </div>
+
+{% endblock %}

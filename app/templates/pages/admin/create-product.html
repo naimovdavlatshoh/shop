@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Settings {% endblock %}
+
+{% block content %}
+   <!-- Main -->
+
+
+    <div class="bg-light settings-page min-vh-100 bg-sm-none">
+        <div class="container py-4">
+ 
+            <form action=""  class="w-50 shadow-2 bg-white  mx-auto rounded-1 p-4 mt-4 p-sm-0 " method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="fs-30 b-2 text-center">Создание продукта</div>
+                
+                    <div class="hr-dark-light"></div>
+                    <div class="grid-2 gap-1" >
+                        <div class="">
+                            <label class="label" for="">Категория</label>
+                            <select class="category w-100" name="category">
+                                {% for category in categories %}
+                                <option value="{{category.id}}">{{category.title}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="">
+                            <label class="label" for="">Фирма</label>
+                            <select class="category w-100" name="brand">
+                                {% for brand in brands %}
+                                <option value="{{brand.id}}">{{brand.title}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="">
+                            <label class="label" for="">Название</label>
+                            <input class="input input-sm" name="title" type="text">
+                        </div>
+                        <div class="">
+                            <label class="label" for="">Год выпуска</label>
+                            <input class="input input-sm" name="year" type="number">
+                        </div>
+                        
+                    </div>
+                    <div class="grid-1 gap-1 mt-4">
+                        <div class="">
+                            <label class="label" for="">Фото</label>
+                            <input class="input input-sm" name="image" type="file">
+                        </div>
+                        <div class="">
+                            <label class="label" for="">Цвет</label>
+                            <select class="colors w-100" name="colors[]" multiple="multiple">
+                                {% for color in colors %}
+                                    <option value="{{color.id}}">{{color.title}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <textarea placeholder="Описание товара" style="height: 150px;" name="text" class="input mt-4"></textarea>
+                    <button class="btn btn-blue mx-auto rounded-1 mt-4 w-50">Добавить</button>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
